@@ -1,0 +1,44 @@
+Bài tập lớn:
+Thiết kế hệ thống quản lý đào tạo của một trường đại học
+
+- Class
+	+ Sinh viên
+	+ Giảng viên
+	+ Admin (quản trị viên)
+
+	+ Khóa học
+	+ Lớp học
+
+# Yêu cầu:
+
+- Thiết kế hệ thống với UML
+- Thiết kế GUI
+- Lưu được (file csv) và load được dữ liệu của sinh viên, giảng viên
+- Sử dụng git, github quản lí source code, làm việc nhóm
+- Thiết kế database (MySql, PosgreSQL, SQL Server, ...) với JDBC <-> java database connector
+
+lập team: mỗi team có ít nhất 2 thành viên
+
+- Chức năng:
+
++ admin : 4 chức năng
+ 	- Nhập thông tin sinh viên(thêm, xóa, sửa , lưu , đọc)
+ 	- Nhập thông tin giảng viên (thêm, xóa, sửa , lưu , đọc)
+ 	- Nhập thông tin khóa học (mã học phần, thời gian, tín chỉ, tên học phần, phòng học)
+ 	-> arraylist (thông tin khóa học) -> arraylist (tên lớp)
+
++ sinh viên: 2 chức năng
+	- xem điểm
+	- đăng kí môn
+
++ giảng viên: 2 chức năng
+	- đăng kí lịch dạy
+	- nhập điểm (sửa, xóa, lưu vào file)
+
+-> sau khi đăng nhập (giảng viên, sinh viên) -> nhập mới thông tin luôn
+
+
+- công việc:
+
+	+ tạo 2 form login (sinh viên, giảng viên)
+	+ logindialog : chuyển thành frame
