@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="HUS_UML">
+  <ClassDiagramComponents>
+    <Class name="SinhVien" package="" visibility="public" xPosition="596.0" yPosition="95.0">
+      <Fields>
+        <Field name="huser" type="HUSER" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="xemdiem" returnType="void" visibility="public"/>
+        <Method name="dkLophoc" returnType="void" visibility="public"/>
+        <Method name="dkKhoahoc" returnType="void" visibility="public"/>
+        <Method name="search" returnType="void" visibility="public"/>
+        <Method name="delete" returnType="void" visibility="public"/>
+        <Method name="update" returnType="void" visibility="public"/>
+        <Method name="save" returnType="void" visibility="public"/>
+        <Method name="xemMonHoc" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="GiangVien" package="" visibility="public" xPosition="425.0" yPosition="317.0">
+      <Fields>
+        <Field name="huser" type="HUSER" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="suaDiem" returnType="void" visibility="public"/>
+        <Method name="xemMonHoc" returnType="void" visibility="public"/>
+        <Method name="search" returnType="void" visibility="public"/>
+        <Method name="delete" returnType="void" visibility="public"/>
+        <Method name="update" returnType="void" visibility="public"/>
+        <Method name="save" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Admins" package="" visibility="public" xPosition="35.0" yPosition="25.0">
+      <Fields>
+        <Field name="huser" type="HUSER" visibility="private"/>
+        <Field name="sinhvien" type="SinhVien" visibility="private"/>
+        <Field name="khoahoc" type="MonHoc" visibility="private"/>
+        <Field name="giangvien" type="GiangVien" visibility="private"/>
+        <Field name="lophoc" type="LopHoc" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="add" returnType="void" visibility="public"/>
+        <Method name="search" returnType="void" visibility="public"/>
+        <Method name="delete" returnType="void" visibility="public"/>
+        <Method name="update" returnType="void" visibility="public"/>
+        <Method name="save" returnType="void" visibility="public"/>
+        <Method name="newO" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="LopHoc" package="" visibility="public" xPosition="21.0" yPosition="455.0">
+      <Fields>
+        <Field name="maLopHoc" type="char" visibility="private"/>
+        <Field name="nameLopHoc" type="String" visibility="private"/>
+        <Field name="giangvien" type="GiangVien" visibility="private"/>
+        <Field name="phongHoc" type="String" visibility="private"/>
+        <Field name="chiSoLopHoc" type="char" visibility="private"/>
+        <Field name="khungGio" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="MonHoc" package="" visibility="public" xPosition="238.0" yPosition="416.0">
+      <Fields>
+        <Field name="maMonHoc" type="char" visibility="private"/>
+        <Field name="nameMonHoc" type="String" visibility="private"/>
+        <Field name="soTinChi" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="HUSER" package="" visibility="public" xPosition="396.0" yPosition="25.0">
+      <Fields>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="mail" type="String" visibility="private"/>
+        <Field name="ID" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="SinhVien" target="HUSER"/>
+    <HasRelation name="has many" source="Admins" target="GiangVien" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <HasRelation name="has many" source="MonHoc" target="LopHoc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <HasRelation name="has many" source="Admins" target="SinhVien" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <IsRelation name="is" source="Admins" target="HUSER"/>
+    <IsRelation name="is" source="GiangVien" target="HUSER"/>
+    <HasRelation name="has many" source="Admins" target="MonHoc" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
