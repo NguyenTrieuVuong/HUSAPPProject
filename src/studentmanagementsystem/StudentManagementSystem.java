@@ -5,6 +5,9 @@
  */
 package studentmanagementsystem;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 import javax.swing.UIManager;
 
 /**
@@ -17,11 +20,24 @@ public class StudentManagementSystem {
         try {
 //            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
-            LoginFrame loginFrame = new LoginFrame();
-            loginFrame.setVisible(true);
+            AdminForm adminform = new AdminForm();
+            adminform.setVisible(true);
+            adminform.displayPanel(new LoginPanel());
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        try{
+//            File myFile = new File("AdminLogin.csv");
+//            System.out.println(myFile.getAbsolutePath());
+//            Scanner reader = new Scanner(myFile);
+//            while (reader.hasNext()){
+//                String line = reader.nextLine();
+//                System.out.println(line);
+//            }
+//        }
+//        catch(IOException e){
+//            System.out.println("File not found");
+//        }
     }
 
 }

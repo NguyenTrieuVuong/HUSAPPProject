@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="HUS_UML">
+  <ClassDiagramComponents>
+    <Class name="SinhVien" package="" visibility="public" xPosition="458.0" yPosition="25.0">
+      <Fields>
+        <Field name="huser" type="HUSER" visibility="private"/>
+        <Field name="diem" type="float" visibility="private"/>
+        <Field name="MSV" type="float" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="GiangVien" package="" visibility="public" xPosition="838.0" yPosition="327.0">
+      <Fields>
+        <Field name="huser" type="HUSER" visibility="private"/>
+        <Field name="ID" type="float" visibility="private"/>
+        <Field name="phoneNumber" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Admins" package="" visibility="public" xPosition="35.0" yPosition="25.0">
+      <Fields>
+        <Field name="huser" type="HUSER" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="add" returnType="void" visibility="public"/>
+        <Method name="search" returnType="void" visibility="public"/>
+        <Method name="delete" returnType="void" visibility="public"/>
+        <Method name="update" returnType="void" visibility="public"/>
+        <Method name="save" returnType="void" visibility="public"/>
+        <Method name="newO" returnType="void" visibility="public"/>
+        <Method name="xemdd" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="LopHoc" package="" visibility="public" xPosition="49.0" yPosition="453.0">
+      <Fields>
+        <Field name="nameLH" type="String" visibility="private"/>
+        <Field name="GV" type="GiangVien" visibility="private"/>
+        <Field name="PH" type="String" visibility="private"/>
+        <Field name="MLH" type="String" visibility="private"/>
+        <Field name="studen" type="SinhVien" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="hocphan" package="" visibility="public" xPosition="541.0" yPosition="472.0">
+      <Fields>
+        <Field name="MHP" type="String" visibility="private"/>
+        <Field name="nameHP" type="String" visibility="private"/>
+        <Field name="soHP" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="HUSER" package="" visibility="public" xPosition="780.0" yPosition="63.0">
+      <Fields>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="mail" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="has many" source="Admins" target="hocphan" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <HasRelation name="has" source="Admins" target="LopHoc" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="SinhVien" target="HUSER"/>
+    <HasRelation name="has many" source="Admins" target="GiangVien" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <IsRelation name="is" source="GiangVien" target="HUSER"/>
+    <HasRelation name="has many" source="Admins" target="SinhVien" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
