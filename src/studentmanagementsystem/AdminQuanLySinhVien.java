@@ -8,9 +8,11 @@ package studentmanagementsystem;
 import Hus.Sinhvien;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.RowFilter;
@@ -23,11 +25,12 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
     ArrayList<Sinhvien> svList = new ArrayList<>();
     DefaultTableModel model;
     private int currentIdx;
-
+    Scanner sc;
     public AdminQuanLySinhVien() {
         initComponents();
         this.svList = new ArrayList<>();
         this.currentIdx = -1;
+        
     }
 
     /**
@@ -63,6 +66,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         notification = new javax.swing.JLabel();
         lophoc = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        dssv = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
@@ -156,6 +160,13 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
 
         jLabel7.setText("Lớp học");
 
+        dssv.setText("DSSV");
+        dssv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dssvActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,8 +174,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -197,22 +206,31 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                                                         .addComponent(nu)))
                                                 .addGap(12, 12, 12)))
                                         .addComponent(searchButton))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(createButton)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(saveButton)
-                                            .addGap(25, 25, 25)
-                                            .addComponent(updateButton)
-                                            .addGap(28, 28, 28)
-                                            .addComponent(deleteButton))))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(createButton)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(saveButton)
+                                                .addGap(25, 25, 25)
+                                                .addComponent(updateButton)
+                                                .addGap(28, 28, 28)
+                                                .addComponent(deleteButton)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(dssv, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(87, 87, 87))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(128, 128, 128)
                 .addComponent(notification, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +271,8 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                     .addComponent(createButton)
                     .addComponent(saveButton)
                     .addComponent(updateButton)
-                    .addComponent(deleteButton))
+                    .addComponent(deleteButton)
+                    .addComponent(dssv, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -280,34 +299,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
             gender = "nu";
             gd = true;
         }
-//        if (svList.isEmpty()) {
-//            notification.setText("Sinh viên đã được tạo");
-//            Sinhvien tabsv = new Sinhvien(ID.getText(), ten.getText(), email.getText(), gd, lophoc.getText());
-//            svList.add(tabsv);
-//            model = (DefaultTableModel) sinhVienTable.getModel();
-//            model.addRow(new Object[]{
-//                tabsv.getName(), tabsv.getID(), tabsv.getEmail(), gender, tabsv.getLophoc()
-//            });
-//        } 
-//        else {
-//            for (int i = 0; i < svList.size(); i++) {
-//                for (int j = i; j < svList.size(); j++) {
-//                    if (svList.get(j).getID().equals(ID.getText()) || svList.get(j).getEmail().equals(email.getText())) {
-//                        notification.setText("ID hoặc email bị trùng");
-//
-//                    } else {
-//                        notification.setText("Sinh viên đã được tạo");
-//                        Sinhvien tabsv = new Sinhvien(ID.getText(), ten.getText(), email.getText(), gd, lophoc.getText());
-//                        svList.add(tabsv);
-//                        model = (DefaultTableModel) sinhVienTable.getModel();
-//                        model.addRow(new Object[]{
-//                            tabsv.getName(), tabsv.getID(), tabsv.getEmail(), gender, tabsv.getLophoc()
-//                        });
-//                    }
-//                }
-//                
-//            }
-//        }
         if (svList.isEmpty()) {
             notification.setText("Sinh viên đã được tạo");
             Sinhvien tabsv = new Sinhvien(ID.getText(), ten.getText(), email.getText(), gd, lophoc.getText());
@@ -376,12 +367,18 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-
+    private void dssvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dssvActionPerformed
+        // TODO add your handling code here:
+        this.removeAll();
+        this.add(new DSSV());
+    }//GEN-LAST:event_dssvActionPerformed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ID;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton createButton;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JButton dssv;
     private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
