@@ -38,5 +38,10 @@ public class Monhoc implements java.io.Serializable{
     public void setSoTinChi(int soTinChi) {
         this.soTinChi = soTinChi;
     }
-    
+    public String toMonHoc(){
+        return this.getMaMon()+","+this.getTenMon()+","+this.getSoTinChi();
+    }
+    public Object[] toArray(){
+        return new Object[]{maMon,tenMon,soTinChi};
+    }
 }
