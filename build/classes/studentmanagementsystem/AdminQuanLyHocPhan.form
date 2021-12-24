@@ -24,7 +24,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jSeparator1" alignment="0" pref="532" max="32767" attributes="0"/>
+                  <Component id="jSeparator1" alignment="0" pref="643" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -40,8 +40,6 @@
                                           <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -54,10 +52,8 @@
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="time" max="32767" attributes="0"/>
-                                                  <Component id="soTinChi" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="soTinChi" alignment="0" pref="210" max="32767" attributes="0"/>
                                                   <Component id="hocPhan" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="room" alignment="0" pref="210" max="32767" attributes="0"/>
                                                   <Component id="maHocPhanSearch" max="32767" attributes="0"/>
                                                   <Component id="lopHocPhan" alignment="0" max="32767" attributes="0"/>
                                               </Group>
@@ -70,7 +66,7 @@
                           </Group>
                           <Component id="createButton" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="114" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="225" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -117,16 +113,6 @@
               </Group>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="time" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="room" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="createButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="updateButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -134,7 +120,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="100" max="-2" attributes="0"/>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -163,21 +149,9 @@
         <Property name="text" type="java.lang.String" value="S&#x1ed1; t&#xed;n ch&#x1ec9;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Khung gi&#x1edd;"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ph&#xf2;ng"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="hocPhan">
     </Component>
     <Component class="javax.swing.JTextField" name="soTinChi">
-    </Component>
-    <Component class="javax.swing.JTextField" name="room">
     </Component>
     <Component class="javax.swing.JButton" name="createButton">
       <Properties>
@@ -278,24 +252,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator3">
-    </Component>
-    <Component class="javax.swing.JComboBox" name="time">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>

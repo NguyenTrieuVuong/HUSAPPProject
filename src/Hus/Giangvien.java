@@ -6,19 +6,19 @@ package Hus;
  */
 public class Giangvien extends Huser implements java.io.Serializable {
 
-    String lophoc;
+    String gender;
 
-    public Giangvien(String ID, String name, String email, String lophoc) {
+    public Giangvien(String ID, String name, String email, String gender) {
         super(ID, name, email);
-        this.lophoc = lophoc;
+        this.gender = gender;
     }
 
-    public String getLophoc() {
-        return lophoc;
+    public String getGender() {
+        return gender;
     }
 
-    public void setLophoc(String lophoc) {
-        this.lophoc = lophoc;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     @Override
@@ -53,6 +53,10 @@ public class Giangvien extends Huser implements java.io.Serializable {
 
     public String toGiangVien() {
         return this.getID().trim() + "," + this.getName().trim() + "," + this.getEmail().trim() + ","
-                + "," + this.getLophoc().trim();
+                + "," + this.getGender().trim();
+    }
+
+    public Object[] toArray() {
+        return new Object[]{ID, name, email, gender};
     }
 }
