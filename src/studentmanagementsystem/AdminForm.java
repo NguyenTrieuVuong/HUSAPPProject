@@ -6,6 +6,7 @@
 package studentmanagementsystem;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -196,7 +197,8 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_quanLyDiemActionPerformed
 
     private void gioiThieuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gioiThieuButtonActionPerformed
-        
+        JOptionPane.showMessageDialog(adminChildPanel, "Made by Lê Sỹ Văn, Nguyễn Triệu Vương and "
+                + "Luyện Thị Quyên.\nNo copyright !");
     }//GEN-LAST:event_gioiThieuButtonActionPerformed
 
     /**

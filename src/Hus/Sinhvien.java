@@ -7,9 +7,9 @@ package Hus;
 public class Sinhvien extends Huser implements java.io.Serializable {
 
     String lophoc;
-    boolean gender;
+    String gender;
 
-    public Sinhvien(String ID, String name, String email, boolean gender, String lophoc) {
+    public Sinhvien(String ID, String name, String email, String gender, String lophoc) {
         super(ID, name, email);
         this.lophoc = lophoc;
         this.gender = gender;
@@ -23,19 +23,20 @@ public class Sinhvien extends Huser implements java.io.Serializable {
         this.lophoc = lophoc;
     }
 
-    public boolean isGender() {
+    public String isGender() {
         return gender;
     }
 
     public String getGender() {
-        if (gender = true) {
-            return "nam";
-        } else {
-            return "nu";
-        }
+//        if (gender = false) {
+//            return "nam";
+//        } else {
+//            return "nu";
+//        }
+        return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -71,6 +72,9 @@ public class Sinhvien extends Huser implements java.io.Serializable {
 
     public String toSinhVien() {
         return this.getID().trim() + "," + this.getName().trim() + "," + this.getEmail().trim() + ","
-                + this.getGender()+","+this.getLophoc();
+                + this.getGender()+","+this.getLophoc().trim();
+    }
+    public Object[] toArray(){
+        return new Object[]{ID,name,email,gender,lophoc};
     }
 }
