@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DSGV extends javax.swing.JFrame {
 
-    File file = new File("ListGiangVien.csv");
+    File file = new File("C:\\Users\\nguye\\Documents\\Data\\ListGiangVien.csv");
     DefaultTableModel model;
     Scanner sc;
 
@@ -55,7 +55,7 @@ public class DSGV extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã giảng viên", "Họ và tên", "Email", "Giới tính"
+                "Họ và tên", "Mã giảng viên", "Email", "Giới tính"
             }
         ));
         jScrollPane1.setViewportView(giangVienTable);
@@ -143,7 +143,7 @@ public class DSGV extends javax.swing.JFrame {
         }
         model = (DefaultTableModel) giangVienTable.getModel();
         while (sc.hasNext()) {
-            String data[] = sc.next().split(",");
+            String data[] = sc.nextLine().split(",");
             model.addRow(new Object[]{
                 data[0], data[1], data[2], data[3]
             });

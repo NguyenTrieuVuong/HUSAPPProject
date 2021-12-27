@@ -53,7 +53,7 @@ public class Giangvien extends Huser implements java.io.Serializable {
 
     public String toGiangVien() {
         return this.getID().trim() + "," + this.getName().trim() + "," + this.getEmail().trim() + ","
-                + "," + this.getGender().trim();
+                + this.getGender().trim();
     }
 
     public Object[] toArray() {

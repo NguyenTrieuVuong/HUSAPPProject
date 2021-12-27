@@ -61,10 +61,10 @@ public class Lophoc extends Monhoc implements java.io.Serializable {
         this.tenMon = tenMon;
     }
 
-    @Override
-    public int getSoTinChi() {
-        return soTinChi;
-    }
+//    @Override
+//    public int getSoTinChi() {
+//        return soTinChi;
+//    }
 
     @Override
     public void setSoTinChi(int soTinChi) {

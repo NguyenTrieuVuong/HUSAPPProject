@@ -20,7 +20,7 @@ import javax.swing.table.TableRowSorter;
 public class AdminQuanLySinhVien extends javax.swing.JPanel {
 
     File file = new File("ListSinhVien.csv");
-    ArrayList<Sinhvien> svList = new ArrayList<>();
+    ArrayList<Sinhvien> svList = new ArrayList<Sinhvien>();
     DefaultTableModel model;
     private int currentIdx;
     Scanner sc;
@@ -37,7 +37,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         this.ID.setText(this.sv.getName());
         this.ten.setText(this.sv.getID());
         this.email.setText(this.sv.getEmail());
-        this.lophoc.setText(this.sv.getLophoc());
+        this.lopHocCheckBox.setSelectedItem(this.sv.getLophoc());
     }
 
     public void ghiSV(ArrayList<Sinhvien> list) {
@@ -113,11 +113,11 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         searchButton = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         notification = new javax.swing.JLabel();
-        lophoc = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         dssv = new javax.swing.JButton();
         previousButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
+        lopHocCheckBox = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
@@ -130,6 +130,12 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         jLabel4.setText("Email");
 
         jLabel6.setText("Giới tính");
+
+        ID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                IDKeyPressed(evt);
+            }
+        });
 
         buttonGroup1.add(nam);
         nam.setText("Nam");
@@ -208,6 +214,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         });
 
         notification.setForeground(new java.awt.Color(255, 0, 0));
+        notification.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel7.setText("Lớp học");
 
@@ -238,6 +245,8 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
             }
         });
 
+        lopHocCheckBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ky thuat dien tu va tin hoc", "May tinh va khoa hoc thong tin", "Khoa hoc du lieu", "Toan-Tin" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -249,65 +258,69 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                         .addComponent(jSeparator1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(createButton)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(saveButton)
+                                        .addGap(25, 25, 25)
+                                        .addComponent(updateButton)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(deleteButton)))
+                                .addGap(18, 18, 18)
+                                .addComponent(dssv, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel6)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(55, 55, 55)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(lopHocCheckBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                            .addComponent(ten)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(nam)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(nu)))))
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(previousButton)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(nextButton))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(36, 36, 36)
+                                        .addComponent(searchButton)))))
+                        .addGap(163, 164, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(createButton)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(saveButton)
-                                                .addGap(25, 25, 25)
-                                                .addComponent(updateButton)
-                                                .addGap(28, 28, 28)
-                                                .addComponent(deleteButton)))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(dssv, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel2)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel7)
-                                                .addComponent(jLabel6)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(55, 55, 55)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(lophoc)
-                                                    .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                                    .addComponent(ten)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(nam)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(nu))))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(12, 12, 12)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(previousButton)
-                                                .addGap(26, 26, 26)
-                                                .addComponent(nextButton))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(36, 36, 36)
-                                                .addComponent(searchButton))))))
-                            .addComponent(jLabel1))
-                        .addGap(163, 163, 163))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+                                .addGap(197, 197, 197)
+                                .addComponent(notification, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(249, 249, 249)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(197, 197, 197)
-                .addComponent(notification, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,8 +360,8 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                     .addComponent(previousButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lophoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(lopHocCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createButton)
@@ -422,16 +435,15 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
 //
 //        }
         try {
-            if (ID.getText().equals("") || ten.getText().equals("") || email.getText().equals("")
-                    || lophoc.getText().equals("")) {
+            if (ID.getText().equals("") || ten.getText().equals("") || email.getText().equals("")){
                 notification.setText("Bạn không được bỏ sót thông tin nào");
             } else {
                 if (ktraTrungMaSv(ID.getText())||ktraTrungEmail(email.getText())) {
                     notification.setText("Sinh viên đã được tạo");
                     Sinhvien a = new Sinhvien(ID.getText(), ten.getText(), email.getText(), gender,
-                             lophoc.getText());
+                             lopHocCheckBox.getSelectedItem().toString());
                     svList.add(a);
-                    ghiSV(svList);
+//                    ghiSV(svList);
                     taoBangSV();
                 } else{
                     notification.setText("ID hoặc email bị trùng");
@@ -444,7 +456,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
-            FileWriter writer = new FileWriter("ListSinhVien.csv");
+            FileWriter writer = new FileWriter("C:\\Users\\nguye\\Documents\\Data\\ListSinhVien.csv", true);
             for (Sinhvien sv : svList) {
                 writer.write(sv.toSinhVien() + "\n");
             }
@@ -477,7 +489,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
             String ID = this.ID.getText();
             String name = this.ten.getText();
             String email = this.email.getText();
-            String lophoc = this.lophoc.getText();
+            String lophoc = this.lopHocCheckBox.getSelectedItem().toString();
             String gender;
             boolean gd;
             if (nam.isSelected()) {
@@ -538,6 +550,14 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_nextButtonActionPerformed
 
+    private void IDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IDKeyPressed
+        DefaultTableModel m = (DefaultTableModel) sinhVienTable.getModel();
+        m.fireTableDataChanged();
+        TableRowSorter sorter = new TableRowSorter(m);
+        sinhVienTable.setRowSorter(sorter);
+        sorter.setRowFilter(RowFilter.regexFilter(ID.getText()));
+    }//GEN-LAST:event_IDKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ID;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -555,7 +575,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField lophoc;
+    private javax.swing.JComboBox<String> lopHocCheckBox;
     private javax.swing.JRadioButton nam;
     private javax.swing.JButton nextButton;
     private javax.swing.JLabel notification;

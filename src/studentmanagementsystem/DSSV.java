@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DSSV extends javax.swing.JFrame {
 
-    File file = new File("ListSinhVien.csv");
+    File file = new File("C:\\Users\\nguye\\Documents\\Data\\ListSinhVien.csv");
     DefaultTableModel model;
     Scanner sc;
 
@@ -141,7 +141,7 @@ public class DSSV extends javax.swing.JFrame {
         }
         model = (DefaultTableModel) sinhVienTable.getModel();
         while (sc.hasNext()) {
-            String data[] = sc.next().split(",");
+            String data[] = sc.nextLine().split(",");
             model.addRow(new Object[]{
                 data[0], data[1], data[2], data[3], data[4]
             });

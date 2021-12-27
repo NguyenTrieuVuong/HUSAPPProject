@@ -4,15 +4,25 @@ package Hus;
  *
  * @author LeVan
  */
-public class Sinhvien extends Huser implements java.io.Serializable {
+public class Sinhvien {
 
     String lophoc;
     String gender;
+    public String name;
+    public String ID;
+    public String email;
 
     public Sinhvien(String ID, String name, String email, String gender, String lophoc) {
-        super(ID, name, email);
+//        super(ID, name, email);
+        this.name = name;
+        this.ID = ID;
+        this.email = email;
         this.lophoc = lophoc;
         this.gender = gender;
+    }
+
+    public Sinhvien() {
+        
     }
 
     public String getLophoc() {
@@ -40,32 +50,32 @@ public class Sinhvien extends Huser implements java.io.Serializable {
         this.gender = gender;
     }
 
-    @Override
+//    @Override
     public String getName() {
         return name;
     }
 
-    @Override
+//    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
+//    @Override
     public String getID() {
         return ID;
     }
 
-    @Override
+//    @Override
     public void setID(String ID) {
         this.ID = ID;
     }
 
-    @Override
+//    @Override
     public String getEmail() {
         return email;
     }
 
-    @Override
+//    @Override
     public void setEmail(String email) {
         this.email = email;
     }

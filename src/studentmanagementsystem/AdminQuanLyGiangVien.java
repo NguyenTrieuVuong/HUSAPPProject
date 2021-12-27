@@ -127,6 +127,12 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
 
         jLabel6.setText("Giới tính");
 
+        ID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                IDKeyPressed(evt);
+            }
+        });
+
         buttonGroup1.add(nam);
         nam.setText("Nam");
 
@@ -182,7 +188,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã sinh viên", "Họ và tên", "Email", "Giới tính", "Lớp học"
+                "Họ và tên", "Mã giảng viên", "Email", "Giới tính", "Lớp học"
             }
         ) {
             Class[] types = new Class [] {
@@ -204,6 +210,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
         });
 
         notification.setForeground(new java.awt.Color(255, 0, 0));
+        notification.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         dsgv.setBackground(new java.awt.Color(204, 0, 204));
         dsgv.setForeground(new java.awt.Color(255, 255, 255));
@@ -277,7 +284,6 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(36, 36, 36)
                                                 .addComponent(searchButton))))))
-                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(createButton)
@@ -288,7 +294,10 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
                                 .addGap(28, 28, 28)
                                 .addComponent(deleteButton)
                                 .addGap(18, 18, 18)
-                                .addComponent(dsgv, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(dsgv, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(230, 230, 230)
+                                .addComponent(jLabel1)))
                         .addGap(163, 163, 163))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(200, 200, 200)
@@ -415,7 +424,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
                     notification.setText("Giảng viên đã được tạo");
                     Giangvien a = new Giangvien(ID.getText(), ten.getText(), email.getText(), gender);
                     gvList.add(a);
-                    ghiGV(gvList);
+//                    ghiGV(gvList);
                     taoBangGV();
                 } else{
                     notification.setText("ID hoặc email bị trùng");
@@ -428,7 +437,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
-            FileWriter writer = new FileWriter("ListGiangVien.csv");
+            FileWriter writer = new FileWriter("C:\\Users\\nguye\\Documents\\Data\\ListGiangVien.csv",true);
             for (Giangvien gv : gvList) {
                 writer.write(gv.toGiangVien() + "\n");
             }
@@ -520,6 +529,14 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
             displayGiangVien();
         }
     }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void IDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IDKeyPressed
+        DefaultTableModel m = (DefaultTableModel) giangVienTable.getModel();
+        m.fireTableDataChanged();
+        TableRowSorter sorter = new TableRowSorter(m);
+        giangVienTable.setRowSorter(sorter);
+        sorter.setRowFilter(RowFilter.regexFilter(ID.getText()));
+    }//GEN-LAST:event_IDKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ID;

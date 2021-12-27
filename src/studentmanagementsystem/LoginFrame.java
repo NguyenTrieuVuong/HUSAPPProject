@@ -16,7 +16,7 @@ import javax.swing.JFrame;
  */
 public class LoginFrame extends javax.swing.JFrame {
 
-    File file = new File("AdminLogin.csv");
+    File file = new File("C:\\Users\\nguye\\Documents\\Data\\AdminLogin.csv");
     Scanner sc ;
     boolean check = false;
     public LoginFrame() {
