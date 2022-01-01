@@ -60,7 +60,7 @@ public class DSSV extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(sinhVienTable);
 
-        closeButton.setText("Close");
+        closeButton.setText("Đóng");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);

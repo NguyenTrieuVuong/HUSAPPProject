@@ -14,9 +14,13 @@ public class Bangdiem {
         this.ID = ID;
         this.hocPhan = hocPhan;
     }
-    public Bangdiem(String ID, String hocPhan, String diemThuongXuyen, String diemGiuaKy, String diemCuoiKy){
-        
-    }
+//    public Bangdiem(String ID, String hocPhan, float diemThuongXuyen, float diemGiuaKy, float diemCuoiKy){
+//        this.diemThuongXuyen = diemThuongXuyen;
+//        this.diemGiuaKy = diemGiuaKy;
+//        this.diemCuoiKy = diemCuoiKy;
+//        this.ID = ID;
+//        this.hocPhan = hocPhan;
+//    }
 
     public float getDiemThuongXuyen() {
         return diemThuongXuyen;

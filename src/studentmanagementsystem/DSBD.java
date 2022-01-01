@@ -9,21 +9,22 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author admin
- */
-public class DanhSachDiemDayDu extends javax.swing.JFrame {
-    File file = new File("ListBangDiem.csv");
+public class DSBD extends javax.swing.JFrame {
+
+    File file = new File("C:\\Users\\nguye\\Documents\\Data\\ListBangDiem.csv");
     DefaultTableModel model;
     Scanner sc;
-    /**
-     * Creates new form DanhSachDiemDayDu
-     */
-    public DanhSachDiemDayDu() {
+    public DSBD() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.pack();
+        this.setFocusable(true);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.taobang();
     }
     public void taobang() {
         try {
@@ -31,14 +32,15 @@ public class DanhSachDiemDayDu extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DSSV.class.getName()).log(Level.SEVERE, null, ex);
         }
-        model = (DefaultTableModel) sinhVienTable.getModel();
+        model = (DefaultTableModel) diemTable.getModel();
         while (sc.hasNext()) {
-            String data[] = sc.next().split(",");
+            String data[] = sc.nextLine().split(",");
             model.addRow(new Object[]{
                 data[0], data[1], data[2], data[3], data[4], data[5], data[6]
             });
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,50 +50,54 @@ public class DanhSachDiemDayDu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        closeButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        sinhVienTable = new javax.swing.JTable();
+        diemTable = new javax.swing.JTable();
+        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        closeButton.setText("Close");
+        diemTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã sinh viên", "Học phần", "Điểm TX", "Điểm GK", "Điểm CK", "Điểm TBC", "Điểm chữ"
+            }
+        ));
+        jScrollPane1.setViewportView(diemTable);
+
+        closeButton.setText("Đóng");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
             }
         });
 
-        sinhVienTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Mã sinh viên", "Môn học", "Điểm TX", "Điểm GK", "Điểm CK", "Điểm TBC", "Điểm chữ"
-            }
-        ));
-        jScrollPane1.setViewportView(sinhVienTable);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(535, Short.MAX_VALUE)
                 .addComponent(closeButton)
-                .addGap(38, 38, 38))
+                .addGap(55, 55, 55))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(401, Short.MAX_VALUE)
                 .addComponent(closeButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(51, Short.MAX_VALUE)))
         );
 
         pack();
@@ -118,27 +124,27 @@ public class DanhSachDiemDayDu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DanhSachDiemDayDu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DSBD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DanhSachDiemDayDu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DSBD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DanhSachDiemDayDu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DSBD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DanhSachDiemDayDu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DSBD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DanhSachDiemDayDu().setVisible(true);
+                new DSBD().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
+    private javax.swing.JTable diemTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable sinhVienTable;
     // End of variables declaration//GEN-END:variables
 }

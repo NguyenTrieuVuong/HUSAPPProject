@@ -19,7 +19,7 @@ import javax.swing.table.TableRowSorter;
 
 public class AdminQuanLySinhVien extends javax.swing.JPanel {
 
-    File file = new File("ListSinhVien.csv");
+    File file = new File("C:\\Users\\nguye\\Documents\\Data\\ListSinhVien.csv");
     ArrayList<Sinhvien> svList = new ArrayList<Sinhvien>();
     DefaultTableModel model;
     private int currentIdx;
@@ -115,7 +115,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         notification = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         dssv = new javax.swing.JButton();
-        previousButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
         lopHocCheckBox = new javax.swing.JComboBox<>();
 
@@ -229,14 +228,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
             }
         });
 
-        previousButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Back.png"))); // NOI18N
-        previousButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        previousButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                previousButtonActionPerformed(evt);
-            }
-        });
-
         nextButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Forward.png"))); // NOI18N
         nextButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         nextButton.addActionListener(new java.awt.event.ActionListener() {
@@ -296,15 +287,13 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                                                 .addComponent(nam)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(nu)))))
-                                .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(previousButton)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(nextButton))
+                                        .addGap(48, 48, 48)
+                                        .addComponent(searchButton))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(36, 36, 36)
-                                        .addComponent(searchButton)))))
+                                        .addGap(28, 28, 28)
+                                        .addComponent(nextButton)))))
                         .addGap(163, 164, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,8 +345,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                             .addComponent(jLabel6)
                             .addComponent(nam)
                             .addComponent(nu)))
-                    .addComponent(nextButton)
-                    .addComponent(previousButton))
+                    .addComponent(nextButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -387,63 +375,23 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         String gender;
-        boolean gd;
         if (nam.isSelected()) {
             gender = "nam";
-            gd = false;
-        } else {
+        } else if(nu.isSelected()){
             gender = "nu";
-            gd = true;
         }
-//        if (svList.isEmpty()) {
-//            notification.setText("Sinh viên đã được tạo");
-//            Sinhvien tabsv = new Sinhvien(ID.getText(), ten.getText(), email.getText(), gd, lophoc.getText());
-//            svList.add(tabsv);
-//            model = (DefaultTableModel) sinhVienTable.getModel();
-//            model.addRow(new Object[]{
-//                tabsv.getName(), tabsv.getID(), tabsv.getEmail(), gender, tabsv.getLophoc()
-//            });
-//            if (ID.getText().equals("") || ten.getText().equals("")
-//                    || email.getText().equals("") || lophoc.getText().equals("")) {
-//                notification.setText("Bạn không được bỏ sót thông tin nào");
-//            } 
-//            else {
-//                notification.setText("Sinh viên đã được tạo");
-//                Sinhvien tabsv = new Sinhvien(ID.getText(), ten.getText(), email.getText(), gd, lophoc.getText());
-//                svList.add(tabsv);
-//                model = (DefaultTableModel) sinhVienTable.getModel();
-//                model.addRow(new Object[]{
-//                    tabsv.getName(), tabsv.getID(), tabsv.getEmail(), gender, tabsv.getLophoc()
-//                });
-//            }
-//        }
-//        for (int i = 0; i < svList.size(); i++) {
-//            for (int j = i; j < svList.size(); j++) {
-//                if (svList.get(j).getID().equals(ID.getText()) || svList.get(j).getEmail().equals(email.getText())) {
-//                    notification.setText("Email bị trùng");
-//
-//                } else {
-//                    notification.setText("Sinh viên đã được tạo");
-//                    Sinhvien tabsv = new Sinhvien(ID.getText(), ten.getText(), email.getText(), gd, lophoc.getText());
-//                    svList.add(tabsv);
-//                    model = (DefaultTableModel) sinhVienTable.getModel();
-//                    model.addRow(new Object[]{
-//                        tabsv.getName(), tabsv.getID(), tabsv.getEmail(), gender, tabsv.getLophoc()
-//                    });
-//                }
-//            }
-//
-//        }
+        else{
+            gender = "khong xac dinh";
+        }
         try {
             if (ID.getText().equals("") || ten.getText().equals("") || email.getText().equals("")){
                 notification.setText("Bạn không được bỏ sót thông tin nào");
             } else {
-                if (ktraTrungMaSv(ID.getText())||ktraTrungEmail(email.getText())) {
+                if (ktraTrungMaSv(ID.getText())&&ktraTrungEmail(email.getText())) {
                     notification.setText("Sinh viên đã được tạo");
                     Sinhvien a = new Sinhvien(ID.getText(), ten.getText(), email.getText(), gender,
                              lopHocCheckBox.getSelectedItem().toString());
                     svList.add(a);
-//                    ghiSV(svList);
                     taoBangSV();
                 } else{
                     notification.setText("ID hoặc email bị trùng");
@@ -491,13 +439,13 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
             String email = this.email.getText();
             String lophoc = this.lopHocCheckBox.getSelectedItem().toString();
             String gender;
-            boolean gd;
             if (nam.isSelected()) {
                 gender = "nam";
-                gd = false;
-            } else {
+            } else if(nu.isSelected()){
                 gender = "nu";
-                gd = true;
+            }
+            else{
+                gender = "khong xac dinh";
             }
             Sinhvien sv = new Sinhvien(ID, name, email, gender, lophoc);
             this.svList.set(this.currentIdx, sv);
@@ -514,27 +462,9 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void dssvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dssvActionPerformed
-        // TODO add your handling code here:
         this.removeAll();
         new DSSV().setVisible(true);
     }//GEN-LAST:event_dssvActionPerformed
-
-    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
-        if (this.svList.isEmpty()) {
-            notification.setText("Không có sinh viên nào");
-        } else if (this.svList.size() >= this.currentIdx) {
-            this.currentIdx--;
-            this.sv = this.svList.get(this.currentIdx);
-            displaySinhVien();
-//            if (this.currentIdx == 0) {
-//                this.currentIdx = this.svList.size();
-//            } 
-        } else {
-            this.currentIdx = this.svList.size() - 1;
-            this.sv = this.svList.get(this.currentIdx);
-            displaySinhVien();
-        }
-    }//GEN-LAST:event_previousButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         if (this.svList.isEmpty()) {
@@ -580,7 +510,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
     private javax.swing.JButton nextButton;
     private javax.swing.JLabel notification;
     private javax.swing.JRadioButton nu;
-    private javax.swing.JButton previousButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTable sinhVienTable;

@@ -21,7 +21,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class AdminQuanLyHocPhan extends javax.swing.JPanel {
 
-//    File f = new File("C:\\Users\\nguye\\Documents\\Data\\ListMonHoc.csv");
+    File f = new File("C:\\Users\\nguye\\Documents\\Data\\ListMonHoc.csv");
     ArrayList<Monhoc> mhList = new ArrayList<>();
 //    AdminQuanLyDiem i;
     DefaultTableModel model;
@@ -52,24 +52,6 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
         this.soTinChi.setText(this.mh.getSoTinChi());
     }
 
-//    public void ghiMH(ArrayList<Monhoc> mhList) {
-//        try {
-//            if (!file.exists()) {
-//                file.createNewFile();
-//            }
-//            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-//            oos.writeObject(mhList);
-//            oos.close();
-//        } catch (Exception e) {
-//        }
-//    }
-//    public ArrayList<Monhoc> docMH() throws FileNotFoundException, IOException, ClassNotFoundException {
-//        if (!file.exists()) {
-//            return new ArrayList<Monhoc>();
-//        }
-//        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-//        return (ArrayList<Monhoc>) ois.readObject();
-//    }
     public void taoBangMH() {
         DefaultTableModel m = (DefaultTableModel) hocPhanTable.getModel();
         m.getDataVector().removeAllElements();
@@ -116,7 +98,6 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
         maHocPhan = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         notification = new javax.swing.JLabel();
-        previousButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
@@ -162,13 +143,10 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
 
         hocPhanTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Mã học phần", "Tên học phần", "Số tín chỉ"
             }
         ));
         jScrollPane1.setViewportView(hocPhanTable);
@@ -177,14 +155,6 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
 
         notification.setForeground(new java.awt.Color(255, 0, 0));
         notification.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        previousButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Back.png"))); // NOI18N
-        previousButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        previousButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                previousButtonActionPerformed(evt);
-            }
-        });
 
         nextButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Forward.png"))); // NOI18N
         nextButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -233,14 +203,12 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
                                             .addComponent(soTinChi, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                             .addComponent(tenHocPhan)
                                             .addComponent(maHocPhan))
-                                        .addGap(47, 47, 47)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(previousButton)
-                                            .addComponent(nextButton)))))
+                                        .addGap(34, 34, 34)
+                                        .addComponent(nextButton))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(176, 176, 176)
                                 .addComponent(jLabel1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 156, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(165, 165, 165)
@@ -258,31 +226,28 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(maHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tenHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)))
-                    .addComponent(previousButton))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(soTinChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
+                        .addGap(39, 39, 39)
                         .addComponent(nextButton)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(soTinChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createButton)
                     .addComponent(saveButton)
                     .addComponent(deleteButton))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(notification, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -298,9 +263,7 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
                     notification.setText("Học phần đã được tạo");
                     Monhoc a = new Monhoc(maHocPhan.getText(), tenHocPhan.getText(), Integer.parseInt(soTinChi.getText()));
                     mhList.add(a);
-//                    new FileMH().ghiMH(mhList);
                     taoBangMH();
-//                    i.indexComboBox();
                 } else {
                     notification.setText("Mã học phần bị trùng");
                 }
@@ -312,7 +275,7 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
-            FileWriter writer = new FileWriter("C:\\Users\\nguye\\Documents\\Data\\ListMonHoc.csv",true);
+            FileWriter writer = new FileWriter(f, true);
             for (Monhoc mh : mhList) {
                 writer.write(mh.toMonHoc() + "\n");
             }
@@ -331,10 +294,6 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
             notification.setText("Môn học đã được xoá thành công");
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
-
-    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_previousButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         if (this.mhList.isEmpty()) {
@@ -366,7 +325,6 @@ public class AdminQuanLyHocPhan extends javax.swing.JPanel {
     private javax.swing.JTextField maHocPhan;
     private javax.swing.JButton nextButton;
     private javax.swing.JLabel notification;
-    private javax.swing.JButton previousButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JTextField soTinChi;
     private javax.swing.JTextField tenHocPhan;
