@@ -24,18 +24,5 @@ public class StudentManagementSystem {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        try{
-//            File myFile = new File("AdminLogin.csv");
-//            System.out.println(myFile.getAbsolutePath());
-//            Scanner reader = new Scanner(myFile);
-//            while (reader.hasNext()){
-//                String line = reader.nextLine();
-//                System.out.println(line);
-//            }
-//        }
-//        catch(IOException e){
-//            System.out.println("File not found");
-//        }
     }
-
 }

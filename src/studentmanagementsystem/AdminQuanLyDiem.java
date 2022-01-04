@@ -29,8 +29,8 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
 //    ArrayList<Monhoc> mhList= new ArrayList<Monhoc>();
     ArrayList<Bangdiem> bdList = new ArrayList<Bangdiem>();
     Scanner sc;
-    File fileMonHoc = new File("C:\\Users\\nguye\\Documents\\Data\\ListMonHoc.csv");
-    File fileSinhVien = new File("C:\\Users\\nguye\\Documents\\Data\\ListSinhVien.csv");
+    File fileMonHoc = new File("ListMonHoc.csv");
+    File fileSinhVien = new File("ListSinhVien.csv");
     private int currentIdx;
     Bangdiem bd;
 
@@ -529,7 +529,7 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
             notification.setText("Lưu điểm thành công");
-            FileWriter writer = new FileWriter("C:\\Users\\nguye\\Documents\\Data\\ListBangDiem.csv", true);
+            FileWriter writer = new FileWriter("ListBangDiem.csv", true);
             for (Bangdiem bd : bdList) {
                 writer.write(bd.toBangDiem() + "\n");
             }

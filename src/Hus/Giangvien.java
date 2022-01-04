@@ -4,13 +4,20 @@ package Hus;
  *
  * @author LeVan
  */
-public class Giangvien extends Huser implements java.io.Serializable {
-
+public class Giangvien {
+    String ID;
+    String name;
+    String email;
     String gender;
 
     public Giangvien(String ID, String name, String email, String gender) {
-        super(ID, name, email);
+        this.ID = ID;
+        this.name = name;
+        this.email = email;
         this.gender = gender;
+    }
+    public Giangvien(){
+        
     }
 
     public String getGender() {
@@ -21,32 +28,26 @@ public class Giangvien extends Huser implements java.io.Serializable {
         this.gender = gender;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public String getID() {
         return ID;
     }
 
-    @Override
     public void setID(String ID) {
         this.ID = ID;
     }
 
-    @Override
     public String getEmail() {
         return email;
     }
 
-    @Override
     public void setEmail(String email) {
         this.email = email;
     }

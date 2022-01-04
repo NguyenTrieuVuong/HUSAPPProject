@@ -21,7 +21,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class AdminQuanLyHocPhan extends javax.swing.JPanel {
 
-    File f = new File("C:\\Users\\nguye\\Documents\\Data\\ListMonHoc.csv");
+    File f = new File("ListMonHoc.csv");
     ArrayList<Monhoc> mhList = new ArrayList<>();
 //    AdminQuanLyDiem i;
     DefaultTableModel model;

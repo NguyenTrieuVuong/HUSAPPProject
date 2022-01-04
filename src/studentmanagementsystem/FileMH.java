@@ -15,7 +15,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class FileMH {
-    File f = new File("C:\\Users\\nguye\\Documents\\Data\\ListMonHoc.csv");
+    File f = new File("ListMonHoc.csv");
     public void ghiMH(ArrayList<Monhoc> list)
     {
         

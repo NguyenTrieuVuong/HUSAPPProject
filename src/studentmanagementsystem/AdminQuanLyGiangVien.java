@@ -16,11 +16,15 @@ import java.util.Scanner;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import JDBC.GiangvienModify;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 public class AdminQuanLyGiangVien extends javax.swing.JPanel {
 
-    File file = new File("C:\\Users\\nguye\\Documents\\Data\\ListGiangVien.csv");
+    File file = new File("ListGiangVien.csv");
     ArrayList<Giangvien> gvList = new ArrayList<>();
+    List<Giangvien> giangvienList = new ArrayList<>();
     DefaultTableModel model;
     private int currentIdx;
     Scanner sc;
@@ -30,6 +34,15 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
         initComponents();
         this.currentIdx = -1;
         taoBangGV();
+        showGiangVien();
+    }
+    private void showGiangVien() {
+        giangvienList = GiangvienModify.findAll();
+        model.setRowCount(0);
+        giangvienList.forEach((giangvien) -> {
+            model.addRow(new Object[]{giangvien.getID(), giangvien.getName(),
+                giangvien.getEmail(), giangvien.getGender()});
+        });
     }
 
     private void displayGiangVien() {
@@ -134,6 +147,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
         });
 
         buttonGroup1.add(nam);
+        nam.setSelected(true);
         nam.setText("Nam");
 
         buttonGroup1.add(nu);
@@ -389,7 +403,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
-            FileWriter writer = new FileWriter("C:\\Users\\nguye\\Documents\\Data\\ListGiangVien.csv", true);
+            FileWriter writer = new FileWriter("ListGiangVien.csv", true);
             for (Giangvien gv : gvList) {
                 writer.write(gv.toGiangVien() + "\n");
             }

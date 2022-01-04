@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class DSBD extends javax.swing.JFrame {
 
-    File file = new File("C:\\Users\\nguye\\Documents\\Data\\ListBangDiem.csv");
+    File file = new File("ListBangDiem.csv");
     DefaultTableModel model;
     Scanner sc;
     public DSBD() {

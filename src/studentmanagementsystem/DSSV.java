@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DSSV extends javax.swing.JFrame {
 
-    File file = new File("C:\\Users\\nguye\\Documents\\Data\\ListSinhVien.csv");
+    File file = new File("ListSinhVien.csv");
     DefaultTableModel model;
     Scanner sc;
 
