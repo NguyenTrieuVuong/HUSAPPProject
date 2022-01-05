@@ -7,15 +7,25 @@ package Hus;
 public class Monhoc implements java.io.Serializable{
     String maMon;
     String tenMon;
+    String giangVien;
     int soTinChi;
 
-    public Monhoc(String maMon, String tenMon, int soTinChi) {
+    public Monhoc(String maMon, String tenMon, int soTinChi, String giangVien) {
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.soTinChi = soTinChi;
+        this.giangVien = giangVien;
     }
 
     public Monhoc() {
+    }
+
+    public String getGiangVien() {
+        return giangVien;
+    }
+
+    public void setGiangVien(String giangVien) {
+        this.giangVien = giangVien;
     }
 
     public String getMaMon() {
@@ -34,7 +44,10 @@ public class Monhoc implements java.io.Serializable{
         this.tenMon = tenMon;
     }
 
-    public String getSoTinChi() {
+    public int getSoTinChi() {
+        return soTinChi;
+    }
+    public String soTinChiToString() {
         return ""+soTinChi;
     }
 
@@ -42,9 +55,9 @@ public class Monhoc implements java.io.Serializable{
         this.soTinChi = soTinChi;
     }
     public String toMonHoc(){
-        return this.getMaMon()+","+this.getTenMon()+","+this.getSoTinChi();
+        return this.getMaMon()+","+this.getTenMon()+","+this.getSoTinChi()+","+this.getGiangVien();
     }
     public Object[] toArray(){
-        return new Object[]{maMon,tenMon,soTinChi};
+        return new Object[]{maMon,tenMon,soTinChi,giangVien};
     }
 }

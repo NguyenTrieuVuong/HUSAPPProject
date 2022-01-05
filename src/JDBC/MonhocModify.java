@@ -4,6 +4,7 @@
  */
 package JDBC;
 
+import Hus.Monhoc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,10 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import Hus.Giangvien;
 
-public class GiangvienModify {
-    public static void insert(Giangvien gv) {
+/**
+ *
+ * @author admin
+ */
+public class MonhocModify {
+    public static void insert(Monhoc mh) {
         Connection connection = null;
         PreparedStatement statement = null;
 
@@ -26,23 +30,23 @@ public class GiangvienModify {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");
 
             //query
-            String sql = "insert into giangvien(id, name, email, gender) values(?, ?, ?, ?)";
+            String sql = "insert into monhoc(mahocphan, tenhocphan, sotinchi, giangvien) values(?, ?, ?, ?)";
             statement = connection.prepareCall(sql);
 
-            statement.setString(1, gv.getID());
-            statement.setString(2, gv.getName());
-            statement.setString(3, gv.getEmail());
-            statement.setString(4, gv.getGender());
+            statement.setString(1, mh.getMaMon());
+            statement.setString(2, mh.getTenMon());
+            statement.setInt(3, mh.getSoTinChi());
+            statement.setString(4, mh.getGiangVien());
 
             statement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(GiangvienModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MonhocModify.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(GiangvienModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MonhocModify.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -50,14 +54,14 @@ public class GiangvienModify {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(GiangvienModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MonhocModify.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
         //ket thuc.
     }
-    public static List<Giangvien> findAll() {
-        List<Giangvien> giangvienList = new ArrayList<>();
+    public static List<Monhoc> findAll() {
+        List<Monhoc> monhocList = new ArrayList<>();
 
         Connection connection = null;
         Statement statement = null;
@@ -67,25 +71,26 @@ public class GiangvienModify {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");
 
             //query
-            String sql = "select * from giangvien";
+            String sql = "select * from monhoc";
             statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                Giangvien std = new Giangvien(resultSet.getString("id"),
-                        resultSet.getString("name"), resultSet.getString("email"),
-                        resultSet.getString("gender"));
-                giangvienList.add(std);
+                Monhoc std = new Monhoc(resultSet.getString("mahocphan"),
+                        resultSet.getString("tenhocphan"), 
+                        resultSet.getInt("sotinchi"),
+                        resultSet.getString("giangvien"));
+                monhocList.add(std);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(GiangvienModify.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MonhocModify.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(GiangvienModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MonhocModify.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -93,54 +98,53 @@ public class GiangvienModify {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(GiangvienModify.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MonhocModify.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
         //ket thuc.
 
-        return giangvienList;
+        return monhocList;
     }
-    public static boolean update(Giangvien gv) throws Exception {
-        String sql = "update giangvien set name=?,email=?,gender=? where id = ?";
+    public static boolean update(Monhoc mh) throws Exception {
+        String sql = "update monhoc set tenhocphan=?,sotinchi=?,giangvien=? where mahocphan = ?";
         try (
                  Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");  PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setString(4, gv.getID());
-            statement.setString(1, gv.getName());
-            statement.setString(2, gv.getEmail());
-            statement.setString(3, gv.getGender());
+            statement.setString(4, mh.getMaMon());
+            statement.setString(1, mh.getTenMon());
+            statement.setInt(2, mh.getSoTinChi());
+            statement.setString(3, mh.getGiangVien());
             return statement.executeUpdate() > 0;
         }
     }
 
-    public boolean delete(String ID) throws Exception{
-        String sql = "delete from giangvien where id = ?";
+    public boolean delete(String maHocPhan) throws Exception{
+        String sql = "delete from monhoc where mahocphan = ?";
         try(
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");
                 PreparedStatement statement = con.prepareStatement(sql);
                 )  {
-            statement.setString(1, ID);
+            statement.setString(1, maHocPhan);
             return statement.executeUpdate()>0;
         }      
     }
 
-    public static Giangvien findByID(String ID) throws Exception {
-        String sql = "select * from giangvien where id = ?";
+    public static Monhoc findByID(String maHocPhan) throws Exception {
+        String sql = "select * from monhoc where mahocphan = ?";
         try (
                  Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");  PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setString(1, ID);
+            statement.setString(1, maHocPhan);
             try ( ResultSet rs = statement.executeQuery();) {
                 if (rs.next()) {
-                    Giangvien gv = new Giangvien();
-                    gv.setID(rs.getString("id"));
-                    gv.setName(rs.getString("name"));
-                    gv.setEmail(rs.getString("email"));
-                    gv.setGender(rs.getString("gender"));
-                    return gv;
+                    Monhoc mh = new Monhoc();
+                    mh.setMaMon(rs.getString("mahocphan"));
+                    mh.setTenMon(rs.getString("tenhocphan"));
+                    mh.setSoTinChi(rs.getInt("sotinchi"));
+                    mh.setGiangVien(rs.getString("giangvien"));
+                    return mh;
                 }
             }
         }
         return null;
     }
 }
-

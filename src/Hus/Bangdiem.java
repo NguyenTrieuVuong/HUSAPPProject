@@ -2,9 +2,20 @@
 package Hus;
 
 public class Bangdiem {
+    int stt;
     float diemThuongXuyen,diemGiuaKy,diemCuoiKy,diemTBC;
     String diemTuongUng,ID,hocPhan;
 
+    public Bangdiem(int stt, String ID, String hocPhan, float diemThuongXuyen, float diemGiuaKy, float diemCuoiKy, float diemTBC, String diemTuongUng) {
+        this.diemThuongXuyen = diemThuongXuyen;
+        this.diemGiuaKy = diemGiuaKy;
+        this.diemCuoiKy = diemCuoiKy;
+        this.diemTBC = diemTBC;
+        this.diemTuongUng = diemTuongUng;
+        this.ID = ID;
+        this.hocPhan = hocPhan;
+        this.stt = stt;
+    }
     public Bangdiem(String ID, String hocPhan, float diemThuongXuyen, float diemGiuaKy, float diemCuoiKy, float diemTBC, String diemTuongUng) {
         this.diemThuongXuyen = diemThuongXuyen;
         this.diemGiuaKy = diemGiuaKy;
@@ -22,6 +33,16 @@ public class Bangdiem {
 //        this.hocPhan = hocPhan;
 //    }
 
+    public Bangdiem() {}
+
+    public int getStt() {
+        return stt;
+    }
+
+    public void setStt(int stt) {
+        this.stt = stt;
+    }
+    
     public float getDiemThuongXuyen() {
         return diemThuongXuyen;
     }
@@ -58,6 +79,9 @@ public class Bangdiem {
 
     public float getDiemTBC() {
         return diemTBC;
+    }
+    public String getDiemTBCtoString() {
+        return ""+diemTBC;
     }
 
     public void setDiemTBC(float diemTBC) {

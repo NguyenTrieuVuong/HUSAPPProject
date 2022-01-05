@@ -29,13 +29,16 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
     private int currentIdx;
     Scanner sc;
     Giangvien gv;
+    int selectedIndex;
 
     public AdminQuanLyGiangVien() {
         initComponents();
         this.currentIdx = -1;
+        model = (DefaultTableModel) giangVienTable.getModel();
         taoBangGV();
         showGiangVien();
     }
+
     private void showGiangVien() {
         giangvienList = GiangvienModify.findAll();
         model.setRowCount(0);
@@ -65,7 +68,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
 
     boolean ktraTrungMaGv(String a) {
         boolean ok = true;
-        for (Giangvien i : gvList) {
+        for (Giangvien i : giangvienList) {
             if (i.getID().equals(ID.getText())) {
                 ok = false;
             }
@@ -75,7 +78,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
 
     boolean ktraTrungEmail(String a) {
         boolean ok = true;
-        for (Giangvien i : gvList) {
+        for (Giangvien i : giangvienList) {
             if (i.getEmail().equals(email.getText())) {
                 ok = false;
             }
@@ -126,7 +129,6 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         notification = new javax.swing.JLabel();
         dsgv = new javax.swing.JButton();
-        nextButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
@@ -213,6 +215,11 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        giangVienTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                giangVienTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(giangVienTable);
 
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search-icon-16.png"))); // NOI18N
@@ -234,14 +241,6 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
         dsgv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dsgvActionPerformed(evt);
-            }
-        });
-
-        nextButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Forward.png"))); // NOI18N
-        nextButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        nextButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextButtonActionPerformed(evt);
             }
         });
 
@@ -281,13 +280,8 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(48, 48, 48)
-                                                .addComponent(searchButton))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(47, 47, 47)
-                                                .addComponent(nextButton))))))
+                                        .addGap(48, 48, 48)
+                                        .addComponent(searchButton))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(createButton)
@@ -335,33 +329,27 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(ten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(nam)
-                            .addComponent(nu))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(createButton)
-                            .addComponent(saveButton)
-                            .addComponent(updateButton)
-                            .addComponent(deleteButton)
-                            .addComponent(dsgv, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(notification, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nextButton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(nam)
+                    .addComponent(nu))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createButton)
+                    .addComponent(saveButton)
+                    .addComponent(updateButton)
+                    .addComponent(deleteButton)
+                    .addComponent(dsgv, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(notification, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -389,9 +377,10 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
             } else {
                 if (ktraTrungMaGv(ID.getText()) && ktraTrungEmail(email.getText())) {
                     notification.setText("Giảng viên đã được tạo");
-                    Giangvien a = new Giangvien(ID.getText(), ten.getText(), email.getText(), gender);
-                    gvList.add(a);
+                    Giangvien gv = new Giangvien(ID.getText(), ten.getText(), email.getText(), gender);
+                    gvList.add(gv);
                     taoBangGV();
+                    GiangvienModify.insert(gv);
                 } else {
                     notification.setText("ID hoặc email bị trùng");
                 }
@@ -406,6 +395,7 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
             FileWriter writer = new FileWriter("ListGiangVien.csv", true);
             for (Giangvien gv : gvList) {
                 writer.write(gv.toGiangVien() + "\n");
+                notification.setText("Giảng viên đã được lưu");
             }
             writer.close();
         } catch (IOException e) {
@@ -415,47 +405,52 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-//        String ID = this.ID.getText();
-//        String ten = this.ten.getText();
-//        String email = this.email.getText();
-//        String gender;
-//        boolean gd;
-//        if (nam.isSelected()) {
-//            gender = "nam";
-//            gd = false;
-//        } else {
-//            gender = "nu";
-//            gd = true;
-//        }
-//        String lophoc = this.lophoc.getText();
-//        Giangvien gv = new Giangvien(ID, ten, email, gd, lophoc);
-//        this.gvList.set(this.currentIdx, gv);
-        if (this.currentIdx == -1) {
-            System.out.println("Bạn không thể cập nhật");
-        } else {
-            String ID = this.ID.getText();
-            String name = this.ten.getText();
-            String email = this.email.getText();
+        try {
+            Giangvien gv = new Giangvien();
+            gv.setID(ID.getText());
+            gv.setName(ten.getText());
+            gv.setEmail(email.getText());
             String gender;
-            boolean gd;
             if (nam.isSelected()) {
                 gender = "nam";
-                gd = false;
-            } else {
+            } else if (nu.isSelected()) {
                 gender = "nu";
-                gd = true;
+            } else {
+                gender = null;
             }
-            Giangvien gv = new Giangvien(ID, name, email, gender);
-            this.gvList.set(this.currentIdx, gv);
+            gv.setGender(gender);
+            GiangvienModify gvm = new GiangvienModify();
+            if (gvm.update(gv)) {
+                notification.setText("Giảng viên đã được cập nhật");
+            } else {
+                notification.setText("Bạn không thể cập nhật");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            notification.setText("Lỗi");
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        if (this.gvList.isEmpty()) {
-            notification.setText("Không có giảng viên nào để xoá");
-        } else {
-            this.gvList.remove(gvList.get(this.currentIdx));
-            notification.setText("Giảng viên đã được xoá thành công");
+        try {
+            GiangvienModify gvm = new GiangvienModify();
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá giảng viên này không ?");
+
+            if (option == 0) {
+                if (gvm.delete(ID.getText())) {
+                    showGiangVien();
+                    notification.setText("Giảng viên đã được xoá");
+                    ID.setText("");
+                    ten.setText("");
+                    email.setText("");
+                    nam.setSelected(true);
+                } else {
+                    notification.setText("Bạn không thể xoá giảng viên");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            notification.setText("Lỗi");
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -465,20 +460,6 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
         new DSGV().setVisible(true);
     }//GEN-LAST:event_dsgvActionPerformed
 
-    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        if (this.gvList.isEmpty()) {
-            notification.setText("Không có giảng viên nào");
-        } else if (this.currentIdx < this.gvList.size() - 1) {
-            this.currentIdx += 1;
-            this.gv = this.gvList.get(this.currentIdx);
-            displayGiangVien();
-        } else {
-            this.gv = this.gvList.get(0);
-            this.currentIdx = 0;
-            displayGiangVien();
-        }
-    }//GEN-LAST:event_nextButtonActionPerformed
-
     private void IDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IDKeyPressed
         DefaultTableModel m = (DefaultTableModel) giangVienTable.getModel();
         m.fireTableDataChanged();
@@ -486,6 +467,30 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
         giangVienTable.setRowSorter(sorter);
         sorter.setRowFilter(RowFilter.regexFilter(ID.getText()));
     }//GEN-LAST:event_IDKeyPressed
+
+    private void giangVienTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_giangVienTableMouseClicked
+        try {
+            int row = giangVienTable.getSelectedRow();
+            if (row >= 0) {
+                String id = (String) giangVienTable.getValueAt(row, 0);
+                GiangvienModify gvm = new GiangvienModify();
+                Giangvien gv = gvm.findByID(id);
+                if (gv != null) {
+                    ID.setText(gv.getID());
+                    ten.setText(gv.getName());
+                    email.setText(gv.getEmail());
+                if(gv.getGender().equals("nam")){
+                    nam.setSelected(true);
+                }
+                else {
+                    nu.setSelected(true);
+                }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            notification.setText("Lỗi");
+        }    }//GEN-LAST:event_giangVienTableMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ID;
@@ -505,7 +510,6 @@ public class AdminQuanLyGiangVien extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JRadioButton nam;
-    private javax.swing.JButton nextButton;
     private javax.swing.JLabel notification;
     private javax.swing.JRadioButton nu;
     private javax.swing.JButton saveButton;

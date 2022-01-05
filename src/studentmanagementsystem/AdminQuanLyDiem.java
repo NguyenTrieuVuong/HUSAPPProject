@@ -6,8 +6,6 @@
 package studentmanagementsystem;
 
 import Hus.Bangdiem;
-import Hus.Monhoc;
-import Hus.Sinhvien;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -18,6 +16,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import JDBC.BangdiemModify;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,10 +30,10 @@ import javax.swing.table.TableRowSorter;
  */
 public class AdminQuanLyDiem extends javax.swing.JPanel {
 
-//    ArrayList<Sinhvien> svList = new ArrayList<Sinhvien>();
-//    ArrayList<Monhoc> mhList= new ArrayList<Monhoc>();
     ArrayList<Bangdiem> bdList = new ArrayList<Bangdiem>();
+    List<Bangdiem> bangdiemList = new ArrayList<Bangdiem>();
     Scanner sc;
+    DefaultTableModel model;
     File fileMonHoc = new File("ListMonHoc.csv");
     File fileSinhVien = new File("ListSinhVien.csv");
     private int currentIdx;
@@ -37,28 +42,57 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
     public AdminQuanLyDiem() {
         initComponents();
         this.currentIdx = -1;
-        try {
-//            svList = new FileSV().docSV();
-//            mhList = new FileMH().docMH();
-            bdList = new FileBD().docBD();
-        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(GuiManager.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-//            Logger.getLogger(GuiManager.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(GuiManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//        indexComboBox();
-        addMonHocItems();
-        addSinhVienItems();
+        model = (DefaultTableModel) diemTable.getModel();
+        showBangDiem();
+        showID();
+        showMonHoc();
     }
 
-//    void indexComboBox() {
-//        hocPhanComboBox.removeAllItems();
-//        for (Monhoc i : mhList) {
-//            hocPhanComboBox.addItem(i.getTenMon());
-//        }
-//    }
+    private void showBangDiem() {
+        bangdiemList = BangdiemModify.findAll();
+        model.setRowCount(0);
+        bangdiemList.forEach((bangdiem) -> {
+            model.addRow(new Object[]{diemTable.getRowCount() + 1, bangdiem.getHocPhan(), bangdiem.getID(),
+                bangdiem.getDiemThuongXuyen(), bangdiem.getDiemGiuaKy(), bangdiem.getDiemCuoiKy(), bangdiem.getDiemTBC(), bangdiem.getDiemTuongUng(),});
+        });
+    }
+    private void showID() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");
+            statement = connection.prepareStatement("select ID from sinhvien");
+            ResultSet rs = statement.executeQuery();
+            IDComboBox.removeAllItems();
+            while (rs.next()) {
+                IDComboBox.addItem(rs.getString("id"));
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+
+        }
+    }
+    private void showMonHoc() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");
+            statement = connection.prepareStatement("select tenhocphan from monhoc");
+            ResultSet rs = statement.executeQuery();
+            hocPhanComboBox.removeAllItems();
+            while (rs.next()) {
+                hocPhanComboBox.addItem(rs.getString("tenhocphan"));
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+
+        }
+    }
+
     private void displayBangDiem() {
         this.IDComboBox.setSelectedItem(this.bd.getID());
         this.hocPhanComboBox.setSelectedItem(this.bd.getHocPhan());
@@ -67,15 +101,6 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
         this.diemCuoiKy.setText(this.bd.getDCK());
     }
 
-//    Monhoc returnMonHoc(String a) {
-//        Monhoc s = new Monhoc();
-//        for (Monhoc i : mhList) {
-//            if (i.getTenMon().equals(s)) {
-//                s = i;
-//            }
-//        }
-//        return s;
-//    }
     public void addMonHocItems() {
         try {
             sc = new Scanner(fileMonHoc);
@@ -100,15 +125,6 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
         }
     }
 
-//    Sinhvien returnSinhVien(String b) {
-//        Sinhvien a = new Sinhvien();
-//        for (Sinhvien i : svList) {
-//            if (i.getID().equals(b)) {
-//                a = i;
-//            }
-//        }
-//        return a;
-//    }
     void taoBangDiem() {
         DefaultTableModel m = (DefaultTableModel) diemTable.getModel();
         m.getDataVector().removeAllElements();
@@ -116,8 +132,6 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
         TableRowSorter sorter = new TableRowSorter(m);
         diemTable.setRowSorter(sorter);
         for (Bangdiem i : bdList) {
-//            m.addRow(new Object[]{i.getID(), i.getHocPhan(), i.getDiemThuongXuyen(),
-//                i.getDiemGiuaKy(),i.getDiemCuoiKy(),i.getDiemTBC(),i.getDiemTuongUng()});
             m.addRow(i.toArray());
         }
     }
@@ -155,7 +169,6 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
         IDComboBox = new javax.swing.JComboBox<>();
         hocPhanComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        nextButton = new javax.swing.JButton();
         name = new javax.swing.JLabel();
         dsbd = new javax.swing.JButton();
         notification = new javax.swing.JLabel();
@@ -223,9 +236,14 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã sinh viên", "Học phần", "Điểm TX", "Điểm GK", "Điểm CK", "Điểm TBC", "Điểm chữ"
+                "STT", "Mã sinh viên", "Học phần", "Điểm TX", "Điểm GK", "Điểm CK", "Điểm TBC", "Điểm chữ"
             }
         ));
+        diemTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                diemTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(diemTable);
 
         jLabel7.setText("Học phần");
@@ -244,27 +262,7 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
         diemTuongUng.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         diemTuongUng.setText("0");
 
-        IDComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IDComboBoxActionPerformed(evt);
-            }
-        });
-
-        hocPhanComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hocPhanComboBoxActionPerformed(evt);
-            }
-        });
-
         jLabel8.setText("Mã sinh viên");
-
-        nextButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Forward.png"))); // NOI18N
-        nextButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        nextButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextButtonActionPerformed(evt);
-            }
-        });
 
         dsbd.setBackground(new java.awt.Color(255, 0, 255));
         dsbd.setForeground(new java.awt.Color(255, 255, 255));
@@ -297,15 +295,9 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(hocPhanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(IDComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addContainerGap(56, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(42, 42, 42)
-                                        .addComponent(nextButton)
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(56, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -348,7 +340,7 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
                                                 .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(18, 18, 18)
                                         .addComponent(dsbd)))
-                                .addContainerGap())))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addComponent(jSeparator1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(224, 224, 224)
@@ -365,14 +357,9 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(nextButton)))
-                        .addGap(10, 10, 10))
+                        .addGap(30, 30, 30)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(hocPhanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,7 +416,7 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(164, 164, 164)
                 .addComponent(notification, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -439,7 +426,7 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(451, Short.MAX_VALUE)
+                .addContainerGap(459, Short.MAX_VALUE)
                 .addComponent(notification, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,24 +437,6 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void hocPhanComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hocPhanComboBoxActionPerformed
-//        hocPhanCheckBox.removeAllItems();
-//        for (Monhoc i : mhList) {
-//            hocPhanCheckBox.addItem(i.getTenMon());
-//        }
-//        indexComboBox();
-    }//GEN-LAST:event_hocPhanComboBoxActionPerformed
-
-    private void IDComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDComboBoxActionPerformed
-//        for(Sinhvien i :svList)
-//        {
-//            if((i.getID()).equals(IDComboBox.getSelectedItem().toString()))
-//            {
-//                name.setText(i.getName());
-//            }
-//        }
-    }//GEN-LAST:event_IDComboBoxActionPerformed
-
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         try {
             if (diemCuoiKy.getText().equals("") || diemGiuaKy.getText().equals("") || diemThuongXuyen.getText().equals("")) {
@@ -477,7 +446,7 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
             if (Float.parseFloat(diemThuongXuyen.getText()) < 0 || Float.parseFloat(diemThuongXuyen.getText()) > 10
                     || Float.parseFloat(diemGiuaKy.getText()) > 10 || Float.parseFloat(diemThuongXuyen.getText()) < 0
                     || Float.parseFloat(diemCuoiKy.getText()) > 10 || Float.parseFloat(diemCuoiKy.getText()) < 0) {
-                notification.setText("Điểm phải thuộc khoảng 0 đến 10");
+                notification.setText("Điểm phải thuộc khoảng từ 0 đến 10");
             } else {
                 float dtx = Float.parseFloat(diemThuongXuyen.getText());
                 float dgk = Float.parseFloat(diemGiuaKy.getText());
@@ -514,11 +483,12 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
                     diemTuongUng.setText("F");
                     diemchu = "F";
                 }
-                Bangdiem bd = new Bangdiem(IDComboBox.getSelectedItem().toString(),
+                Bangdiem bd = new Bangdiem(diemTable.getRowCount(), IDComboBox.getSelectedItem().toString(),
                         hocPhanComboBox.getSelectedItem().toString(), dtx, dgk, dck, avg, diemchu);
                 bdList.add(bd);
-//                new FileBD().ghiBD(bdList);
                 taoBangDiem();
+                BangdiemModify.insert(bd);
+                showBangDiem();
                 notification.setText("Nhập điểm thành công");
             }
         } catch (Exception e) {
@@ -528,10 +498,10 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
-            notification.setText("Lưu điểm thành công");
             FileWriter writer = new FileWriter("ListBangDiem.csv", true);
             for (Bangdiem bd : bdList) {
                 writer.write(bd.toBangDiem() + "\n");
+                notification.setText("Lưu điểm thành công");
             }
             writer.close();
         } catch (IOException e) {
@@ -541,11 +511,13 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        if (this.currentIdx == -1) {
-            notification.setText("Bạn không thể cập nhật");
-        } else {
-            String ID = this.IDComboBox.getSelectedItem().toString();
-            String hocphan = this.hocPhanComboBox.getSelectedItem().toString();
+        try {
+            Bangdiem bd = new Bangdiem();
+            bd.setHocPhan(hocPhanComboBox.getSelectedItem().toString());
+            bd.setID(IDComboBox.getSelectedItem().toString());
+            bd.setDiemThuongXuyen(Float.parseFloat(diemThuongXuyen.getText()));
+            bd.setDiemGiuaKy(Float.parseFloat(diemGiuaKy.getText()));
+            bd.setDiemCuoiKy(Float.parseFloat(diemCuoiKy.getText()));
             float dtx = Float.parseFloat(diemThuongXuyen.getText());
             float dgk = Float.parseFloat(diemGiuaKy.getText());
             float dck = Float.parseFloat(diemCuoiKy.getText());
@@ -581,39 +553,73 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
                 diemTuongUng.setText("F");
                 diemchu = "F";
             }
-            notification.setText("Cập nhật điểm thành công");
-            Bangdiem bd = new Bangdiem(ID, hocphan, dtx, dgk, dck, avg, diemchu);
-            this.bdList.set(this.currentIdx, bd);
+            bd.setDiemTBC(avg);
+            bd.setDiemTuongUng(diemchu);
+            BangdiemModify bdm = new BangdiemModify();
+            if (bdm.update(bd)) {
+                notification.setText("Điểm đã được cập nhật");
+            } else {
+                notification.setText("Bạn không thể cập nhật điểm");
+            }
+//            bdm.update(bd);
+            notification.setText("Điểm đã được cập nhật");
+            showBangDiem();
+        } catch (Exception e) {
+            e.printStackTrace();
+            notification.setText("Lỗi");
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        if (this.bdList.isEmpty()) {
-            notification.setText("Không có điểm nào để xoá");
-        } else {
-            this.bdList.remove(bdList.get(this.currentIdx));
-            notification.setText("Điểm đã được xoá thành công");
+        int selectedIndex = diemTable.getSelectedRow();
+        if(selectedIndex >= 0) {
+            Bangdiem bd = bangdiemList.get(selectedIndex);
+            
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá điểm này không ?");
+            
+            if(option == 0) {
+                BangdiemModify.delete(bd.getStt());
+                notification.setText("Điểm đã được xoá thành công");
+                diemThuongXuyen.setText("");
+                diemGiuaKy.setText("");
+                diemCuoiKy.setText("");
+                diemTBC.setText("0");
+                diemTuongUng.setText("0");
+                showBangDiem();
+            }
+        }
+        else{
+            notification.setText("Bạn không thể xoá điểm");
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
-
-    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        if (this.bdList.isEmpty()) {
-            notification.setText("Không có điểm nào");
-        } else if (this.currentIdx < this.bdList.size() - 1) {
-            this.currentIdx += 1;
-            this.bd = this.bdList.get(this.currentIdx);
-            displayBangDiem();
-        } else {
-            this.bd = this.bdList.get(0);
-            this.currentIdx = 0;
-            displayBangDiem();
-        }
-    }//GEN-LAST:event_nextButtonActionPerformed
 
     private void dsbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dsbdActionPerformed
         this.removeAll();
         new DSBD().setVisible(true);
     }//GEN-LAST:event_dsbdActionPerformed
+
+    private void diemTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diemTableMouseClicked
+        try {
+            int row = diemTable.getSelectedRow();
+            if (row >= 0) {
+                int stt = (int) diemTable.getValueAt(row, 0);
+                BangdiemModify bdm = new BangdiemModify();
+                Bangdiem bd = BangdiemModify.findByHocPhan(stt);
+                if (bd != null) {
+                    hocPhanComboBox.setSelectedItem(bd.getHocPhan());
+                    IDComboBox.setSelectedItem(bd.getID());
+                    diemThuongXuyen.setText(bd.getDTX());
+                    diemGiuaKy.setText(bd.getDGK());
+                    diemCuoiKy.setText(bd.getDTX());
+                    diemTBC.setText(bd.getDiemTBCtoString());
+                    diemTuongUng.setText(bd.getDiemTuongUng());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            notification.setText("Lỗi");
+        }
+    }//GEN-LAST:event_diemTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -641,7 +647,6 @@ public class AdminQuanLyDiem extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel name;
-    private javax.swing.JButton nextButton;
     private javax.swing.JLabel notification;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton updateButton;

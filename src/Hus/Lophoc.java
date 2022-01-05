@@ -10,8 +10,8 @@ public class Lophoc extends Monhoc implements java.io.Serializable {
     String phongHoc;
     String maLopHoc;
 
-    public Lophoc(String maMon, String tenMon, int soTinChi, String chiSoLopHoc, String maLopHoc, String phongHoc) {
-        super(maMon, tenMon, soTinChi);
+    public Lophoc(String maMon, String tenMon, int soTinChi, String giangVien, String chiSoLopHoc, String maLopHoc, String phongHoc) {
+        super(maMon, tenMon, soTinChi, giangVien);
         this.chiSoLopHoc = chiSoLopHoc;
         this.phongHoc = phongHoc;
         this.maLopHoc = maLopHoc;

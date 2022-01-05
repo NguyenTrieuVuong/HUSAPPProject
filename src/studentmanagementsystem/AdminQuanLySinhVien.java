@@ -33,7 +33,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
 
     public AdminQuanLySinhVien() {
         initComponents();
-//        this.svList = new ArrayList<>();
         this.currentIdx = -1;
         model = (DefaultTableModel) sinhVienTable.getModel();
         taoBangSV();
@@ -61,7 +60,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
 
     boolean ktraTrungMaSv(String a) {
         boolean ok = true;
-        for (Sinhvien i : svList) {
+        for (Sinhvien i : sinhvienList) {
             if (i.getID().equals(ID.getText())) {
                 ok = false;
             }
@@ -71,7 +70,7 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
 
     boolean ktraTrungEmail(String a) {
         boolean ok = true;
-        for (Sinhvien i : svList) {
+        for (Sinhvien i : sinhvienList) {
             if (i.getEmail().equals(email.getText())) {
                 ok = false;
             }
@@ -132,7 +131,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
         notification = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         dssv = new javax.swing.JButton();
-        nextButton = new javax.swing.JButton();
         lopHocCheckBox = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
@@ -245,14 +243,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
             }
         });
 
-        nextButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Forward.png"))); // NOI18N
-        nextButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        nextButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextButtonActionPerformed(evt);
-            }
-        });
-
         lopHocCheckBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ky thuat dien tu va tin hoc", "May tinh va khoa hoc thong tin", "Khoa hoc du lieu", "Toan-Tin" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -304,13 +294,8 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                                                 .addComponent(nam)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(nu)))))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(48, 48, 48)
-                                        .addComponent(searchButton))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
-                                        .addComponent(nextButton)))))
+                                .addGap(48, 48, 48)
+                                .addComponent(searchButton)))
                         .addGap(163, 164, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,17 +337,14 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(ten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(nam)
-                            .addComponent(nu)))
-                    .addComponent(nextButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(nam)
+                    .addComponent(nu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -433,43 +415,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-//        String ID = this.ID.getText();
-//        String ten = this.ten.getText();
-//        String email = this.email.getText();
-//        String gender;
-//        boolean gd;
-//        if (nam.isSelected()) {
-//            gender = "nam";
-//            gd = false;
-//        } else {
-//            gender = "nu";
-//            gd = true;
-//        }
-//        String lophoc = this.lophoc.getText();
-//        Sinhvien sv = new Sinhvien(ID, ten, email, gd, lophoc);
-//        this.svList.set(this.currentIdx, sv);
-//        if (this.currentIdx == -1) {
-//            System.out.println("Bạn không thể cập nhật");
-//        } else {
-//            selectedIndex = sinhVienTable.getSelectedRow();
-//            if (selectedIndex >= 0) {
-//                String ID = this.ID.getText();
-//                String name = this.ten.getText();
-//                String email = this.email.getText();
-//                String lophoc = this.lopHocCheckBox.getSelectedItem().toString();
-//                String gender;
-//                if (nam.isSelected()) {
-//                    gender = "nam";
-//                } else if (nu.isSelected()) {
-//                    gender = "nu";
-//                } else {
-//                    gender = "khong xac dinh";
-//                }
-//                Sinhvien sv = new Sinhvien(ID, name, email, gender, lophoc);
-//                SinhvienModify.update(sv);
-//            this.svList.set(this.currentIdx, sv);
-//            }
-//        }
         try {
             Sinhvien sv = new Sinhvien();
             sv.setID(ID.getText());
@@ -487,10 +432,9 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
             sv.setLophoc(lopHocCheckBox.getSelectedItem().toString());
             sv.setID(ID.getText());
             SinhvienModify svm = new SinhvienModify();
-            if(svm.update(sv)){
+            if (svm.update(sv)) {
                 notification.setText("Sinh viên đã được cập nhật");
-            }
-            else{
+            } else {
                 notification.setText("Bạn không thể cập nhật");
             }
         } catch (Exception e) {
@@ -500,58 +444,32 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-//        if (this.svList.isEmpty()) {
-//            notification.setText("Không có sinh viên nào để xoá");
-//        } else
-//        {
-//        Sinhvien sinhvien = svList.get(currentIdx);
-        selectedIndex = sinhVienTable.getSelectedRow();
-        if (selectedIndex >= 0) {
-//            Sinhvien sv = sinhvienList.get(selectedIndex);
+        try {
+            SinhvienModify svm = new SinhvienModify();
             int option = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá sinh viên này không ?");
-            if (option == 0) {
-                SinhvienModify.delete(sv.getID());
-//                svList.remove(sinhvien);
-                showSinhVien();
-                notification.setText("Sinh viên đã được xoá thành công");
-            }
-        } else {
-            notification.setText("Lỗi xoá sinh viên");
-        }
 
-//        }
-//        int selectedIndex = sinhVienTable.getSelectedRow();
-//        if (selectedIndex >= 0) {
-//            Sinhvien sv = svList.get(selectedIndex);
-//
-//            int option = JOptionPane.showConfirmDialog(this, "Do you want to delete this item?");
-//
-//            if (option == 0) {
-//                SinhvienModify.delete(sv.getID());
-//
-//                showSinhVien();
-//            }
-//        }
+            if (option == 0) {
+                if (svm.delete(ID.getText())) {
+                    showSinhVien();
+                    ID.setText("");
+                    ten.setText("");
+                    email.setText("");
+                    nam.setSelected(true);
+                    notification.setText("Sinh viên đã được xoá");
+                } else {
+                    notification.setText("Bạn không thể xoá sinh viên");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            notification.setText("Lỗi");
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void dssvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dssvActionPerformed
         this.removeAll();
         new DSSV().setVisible(true);
     }//GEN-LAST:event_dssvActionPerformed
-
-    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        if (this.svList.isEmpty()) {
-            notification.setText("Không có sinh viên nào");
-        } else if (this.currentIdx < this.svList.size() - 1) {
-            this.currentIdx += 1;
-            this.sv = this.svList.get(this.currentIdx);
-            displaySinhVien();
-        } else {
-            this.sv = this.svList.get(0);
-            this.currentIdx = 0;
-            displaySinhVien();
-        }
-    }//GEN-LAST:event_nextButtonActionPerformed
 
     private void sinhVienTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sinhVienTableMouseClicked
         try {
@@ -564,8 +482,13 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
                     ID.setText(sv.getID());
                     ten.setText(sv.getName());
                     email.setText(sv.getEmail());
-//                    nam.setSelected(sv.getGender()==1?true:false);
                     lopHocCheckBox.setSelectedItem(sv.getLophoc());
+                    if(sv.getGender().equals("nam")){
+                        nam.setSelected(true);
+                    }
+                    else{
+                        nu.setSelected(true);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -593,7 +516,6 @@ public class AdminQuanLySinhVien extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JComboBox<String> lopHocCheckBox;
     private javax.swing.JRadioButton nam;
-    private javax.swing.JButton nextButton;
     private javax.swing.JLabel notification;
     private javax.swing.JRadioButton nu;
     private javax.swing.JButton saveButton;

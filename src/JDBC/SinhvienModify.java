@@ -118,41 +118,51 @@ public class SinhvienModify {
         }
     }
 
-    public static void delete(String ID) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
-            //lay tat ca danh sach sinh vien
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");
-
-            //query
-            String sql = "delete from sinhvien where id = ?";
-            statement = connection.prepareCall(sql);
-
+//    public static void delete(String ID) {
+//        Connection connection = null;
+//        PreparedStatement statement = null;
+//
+//        try {
+//            //lay tat ca danh sach sinh vien
+//            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");
+//
+//            //query
+//            String sql = "delete from sinhvien where id = ?";
+//            statement = connection.prepareCall(sql);
+//
+//            statement.setString(1, ID);
+//
+//            statement.execute();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(SinhvienModify.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            if (statement != null) {
+//                try {
+//                    statement.close();
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(SinhvienModify.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//
+//            if (connection != null) {
+//                try {
+//                    connection.close();
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(SinhvienModify.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
+//        //ket thuc.
+//    }
+    public boolean delete(String ID) throws Exception{
+        String sql = "delete from sinhvien where id = ?";
+        try(
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/husapp", "root", "");
+                PreparedStatement statement = con.prepareStatement(sql);
+                )  {
             statement.setString(1, ID);
-
-            statement.execute();
-        } catch (SQLException ex) {
-            Logger.getLogger(SinhvienModify.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(SinhvienModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(SinhvienModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        //ket thuc.
+            return statement.executeUpdate()>0;
+        }      
     }
 
     public static Sinhvien findByID(String ID) throws Exception {
